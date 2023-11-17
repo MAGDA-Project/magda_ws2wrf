@@ -9,7 +9,6 @@ package dewetra2wrf
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 	"time"
@@ -22,7 +21,7 @@ import (
 // NewReader returns a obsreader.ObsReader that
 // read observations stored in this format.
 func NewReader() obsreader.ObsReader {
-	return obsreader.WundCurrentObsReader{}
+	return obsreader.CsvReader{}
 }
 
 // Convert converts a set of observations, saved in
@@ -53,7 +52,7 @@ func Convert(inputpath string, domainS string, date time.Time, outputpath string
 
 	header := fmt.Sprintf(headerFormat, len(results), len(results))
 
-	return ioutil.WriteFile(outputpath, []byte(header+resultsS), os.FileMode(0644))
+	return os.WriteFile(outputpath, []byte(header+resultsS), os.FileMode(0644))
 
 }
 
