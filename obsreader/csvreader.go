@@ -50,8 +50,14 @@ func (r CsvReader) ReadAll(dataPath string, domain types.Domain, date time.Time)
 			return nil, err
 		}
 
+		obs.ObsTimeUtc, err = time.Parse("2006-01-02 15:04:05", row[DATE])
+		if err != nil {
+			return nil, err
+		}
+
 		if obs.Lat <= domain.MaxLat && obs.Lat >= domain.MinLat &&
-			obs.Lon <= domain.MaxLon && obs.Lon >= domain.MinLon {
+			obs.Lon <= domain.MaxLon && obs.Lon >= domain.MinLon &&
+			obs.ObsTimeUtc.Sub(date).Abs().Minutes() <= 15 {
 
 			obs.StationID = row[ID]
 			obs.Elevation = elevations.GetFromCoord(obs.Lat, obs.Lon)
@@ -61,20 +67,11 @@ func (r CsvReader) ReadAll(dataPath string, domain types.Domain, date time.Time)
 				return nil, err
 			}
 			obs.Metric.TempAvg = types.Value(temp)
-			obs.ObsTimeUtc, err = time.Parse("2006-01-02 15:04:05", row[DATE])
-			if err != nil {
-				return nil, err
-			}
 
 			//obs.Metric.Pressure = types.Value((obs.Metric.PressureMax + obs.Metric.PressureMin) / 2)
 
 			// convert temperatures from °celsius to °kelvin
 			obs.Metric.TempAvg += 273.15
-
-			// convert wind speed from km/h into m/s
-			obs.Metric.WindspeedAvg *= 0.277778
-			// convert pressure from hPa into Pa
-			obs.Metric.Pressure *= 100
 
 			observations = append(observations, obs)
 		}
