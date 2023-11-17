@@ -7,8 +7,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/meteocima/dewetra2wrf/types"
-	"github.com/meteocima/dewetra2wrf/testutil"
+	"github.com/meteocima/magda_ws2wrf/types"
+	"github.com/meteocima/magda_ws2wrf/testutil"
 	"github.com/stretchr/testify/assert"
 )
 

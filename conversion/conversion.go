@@ -3,13 +3,12 @@
 // Text is formatted according to WRF ob.ascii text format,
 // which is described by this FORTRAN specification:
 //
-// 	INFO  = PLATFORM, DATE, NAME, LEVELS, LATITUDE, LONGITUDE, ELEVATION, ID.
-// 	SRFC  = SLP, PW (DATA,qc,ERROR).
-// 	EACH  = PRES, SPEED, DIR, HEIGHT, TEMP, DEW PT, HUMID (DATA,qc,ERROR)*LEVELS.
-// 	INFO_FMT = (A12,1X,A19,1X,A40,1X,I6,3(F12.3,11X),6X,A40)
-// 	SRFC_FMT = (F12.3,I4,F7.2,F12.3,I4,F7.3)
-// 	EACH_FMT = (3(F12.3,I4,F7.2),11X,3(F12.3,I4,F7.2),11X,3(F12.3,I4,F7.2))
-//
+//	INFO  = PLATFORM, DATE, NAME, LEVELS, LATITUDE, LONGITUDE, ELEVATION, ID.
+//	SRFC  = SLP, PW (DATA,qc,ERROR).
+//	EACH  = PRES, SPEED, DIR, HEIGHT, TEMP, DEW PT, HUMID (DATA,qc,ERROR)*LEVELS.
+//	INFO_FMT = (A12,1X,A19,1X,A40,1X,I6,3(F12.3,11X),6X,A40)
+//	SRFC_FMT = (F12.3,I4,F7.2,F12.3,I4,F7.3)
+//	EACH_FMT = (3(F12.3,I4,F7.2),11X,3(F12.3,I4,F7.2),11X,3(F12.3,I4,F7.2))
 package conversion
 
 import (
@@ -21,7 +20,7 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/meteocima/dewetra2wrf/types"
+	"github.com/meteocima/magda_ws2wrf/types"
 )
 
 // qc is

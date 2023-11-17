@@ -3,7 +3,7 @@ package obsreader
 import (
 	"time"
 
-	"github.com/meteocima/dewetra2wrf/types"
+	"github.com/meteocima/magda_ws2wrf/types"
 )
 
 // ObsReader is implemented by types that

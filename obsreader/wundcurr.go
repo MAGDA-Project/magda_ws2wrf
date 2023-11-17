@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/meteocima/dewetra2wrf/elevations"
-	"github.com/meteocima/dewetra2wrf/types"
+	"github.com/meteocima/magda_ws2wrf/elevations"
+	"github.com/meteocima/magda_ws2wrf/types"
 )
 
 // WundCurrentObsReader reads

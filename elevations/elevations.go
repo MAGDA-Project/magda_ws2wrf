@@ -10,7 +10,7 @@ import (
 	"path"
 
 	//"github.com/RobinRCM/sklearn/interpolate"
-	"github.com/meteocima/dewetra2wrf/elevations/internal/ncdf"
+	"github.com/meteocima/magda_ws2wrf/elevations/internal/ncdf"
 )
 
 //var interp func(x float64, y float64) float64

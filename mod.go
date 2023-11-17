@@ -14,76 +14,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/meteocima/dewetra2wrf/conversion"
-	"github.com/meteocima/dewetra2wrf/obsreader"
-	"github.com/meteocima/dewetra2wrf/types"
-)
-
-// InputFormat is an enum that
-// contains all format supported for read
-// of observations.
-// Enum values are able to create appropriates
-// implementations of obsreader.ObsReader
-// using their NewReader() method.
-type InputFormat int
-
-// InputFormat values ...
-const (
-	DewetraFormat InputFormat = iota
-	WundergroundFormat
-	WunderHistFormat
+	"github.com/meteocima/magda_ws2wrf/conversion"
+	"github.com/meteocima/magda_ws2wrf/obsreader"
+	"github.com/meteocima/magda_ws2wrf/types"
 )
 
 // NewReader returns a obsreader.ObsReader that
 // read observations stored in this format.
-func (f InputFormat) NewReader() obsreader.ObsReader {
-	if f == DewetraFormat {
-		return obsreader.WebdropsObsReader{}
-
-	}
-
-	if f == WundergroundFormat {
-		return obsreader.WundCurrentObsReader{}
-
-	}
-
-	if f == WunderHistFormat {
-		return obsreader.WundHistObsReader{}
-
-	}
-	panic("Unknown format " + f.String())
-
-}
-
-// FromString returns a new InputFormat
-// for the format represented in given code
-func (f *InputFormat) FromString(code string) {
-	if code == "WUNDERGROUND" {
-		*f = WundergroundFormat
-	} else if code == "DEWETRA" {
-		*f = DewetraFormat
-	} else if code == "WUNDERHIST" {
-		*f = WunderHistFormat
-	} else {
-		panic("Unknown format " + code)
-	}
-}
-
-// String implements fmt.Stringer for InputFormat
-func (f InputFormat) String() string {
-	if f == DewetraFormat {
-		return "DewetraFormat"
-	}
-
-	if f == WundergroundFormat {
-		return "WundergroundFormat"
-	}
-
-	if f == DewetraFormat {
-		return "WunderHistFormat"
-	}
-
-	return fmt.Sprintf("%d", int(f))
+func NewReader() obsreader.ObsReader {
+	return obsreader.WundCurrentObsReader{}
 }
 
 // Convert converts a set of observations, saved in
@@ -93,14 +32,14 @@ func (f InputFormat) String() string {
 // within 15 minutes from date.
 // Converted file is saved to outputpath, replacing existing file
 // if any, and using os.FileMode(0644) if the file has to be created.
-func Convert(format InputFormat, inputpath string, domainS string, date time.Time, outputpath string) error {
+func Convert(inputpath string, domainS string, date time.Time, outputpath string) error {
 	domainP, err := types.DomainFromS(domainS)
 	if err != nil {
 		panic(err)
 	}
 	domain := *domainP
 
-	sensorsObservations, err := format.NewReader().ReadAll(inputpath, domain, date)
+	sensorsObservations, err := NewReader().ReadAll(inputpath, domain, date)
 	if err != nil {
 		return err
 	}
