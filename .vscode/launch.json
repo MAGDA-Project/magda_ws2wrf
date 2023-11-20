@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "cli/mag_ws2wrf/main.go",
-            "args": [ "-input", "/home/parroit/repos/cima/magda/hourly_air_temp_24_25_jun_2019.csv", "-outfile", "temp.obs.asc","-date", "2019062400"]
+            "args": [ "-outfile", "temp.obs.asc","-date", "2019062400", "/home/parroit/repos/cima/magda/hourly_air_temp_24_25_jun_2019.csv"]
         }
 
     ]

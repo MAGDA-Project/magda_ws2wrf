@@ -31,21 +31,19 @@ func NewReader() obsreader.ObsReader {
 // within 15 minutes from date.
 // Converted file is saved to outputpath, replacing existing file
 // if any, and using os.FileMode(0644) if the file has to be created.
-func Convert(inputpath string, domainS string, date time.Time, outputpath string) error {
-	domainP, err := types.DomainFromS(domainS)
-	if err != nil {
-		panic(err)
-	}
-	domain := *domainP
+func Convert(inputFiles []string, domain types.Domain, date time.Time, outputpath string) error {
 
-	sensorsObservations, err := NewReader().ReadAll(inputpath, domain, date)
-	if err != nil {
-		return err
-	}
+	var results []string
+	for _, inputpath := range inputFiles {
+		sensorsObservations, err := NewReader().ReadAll(inputpath, domain, date)
+		if err != nil {
+			return err
+		}
 
-	results := make([]string, len(sensorsObservations))
-	for i, result := range sensorsObservations {
-		results[i] = conversion.ToWRFASCII(result)
+		for _, result := range sensorsObservations {
+			result := conversion.ToWRFASCII(result)
+			results = append(results, result)
+		}
 	}
 
 	resultsS := strings.Join(results, "\n")

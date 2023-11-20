@@ -57,7 +57,7 @@ func (r CsvReader) ReadAll(dataPath string, domain types.Domain, date time.Time)
 
 		if obs.Lat <= domain.MaxLat && obs.Lat >= domain.MinLat &&
 			obs.Lon <= domain.MaxLon && obs.Lon >= domain.MinLon &&
-			obs.ObsTimeUtc.Sub(date).Abs().Minutes() <= 15 {
+			(obs.ObsTimeUtc.Sub(date).Abs().Minutes() <= 15 || date.IsZero()) {
 
 			obs.StationID = row[ID]
 			obs.Elevation = elevations.GetFromCoord(obs.Lat, obs.Lon)

@@ -5,6 +5,7 @@
 package elevations
 
 import (
+	"fmt"
 	"math"
 	"os"
 	"path"
@@ -27,9 +28,12 @@ func openElevationsFile() *elevationsFile {
 	if err != nil {
 		panic(err)
 	}
-	orog := path.Join(home, ".dewetra2wrf", "orog.nc")
+	orog := path.Join(home, ".magda_ws2wrf", "orog.nc")
 	f := ncdf.File{}
 	f.Open(orog)
+	if f.Error() != nil {
+		panic(fmt.Errorf("cannot open elevation file %s: %w", orog, f.Error()))
+	}
 	defer f.Close()
 	x := f.Var("x")
 	y := f.Var("y")

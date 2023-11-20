@@ -1,17 +1,14 @@
-# Dewetra to WRF
-
-[![Coverage](https://coveralls.io/repos/github/meteocima/dewetra2wrf/badge.svg?branch=master)](https://coveralls.io/github/meteocima/dewetra2wrf?branch=master) [![CI](https://github.com/meteocima/magda_ws2wrf/actions/workflows/go.yml/badge.svg)](https://github.com/meteocima/magda_ws2wrf/actions/workflows/go.yml) [![Docs](https://pkg.go.dev/badge/github.com/meteocima/magda_ws2wrf.svg)](https://pkg.go.dev/github.com/meteocima/magda_ws2wrf) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# MAGDA Weather stations to WRF
 
 
-This module is the forefront of a framework
-of modules that can be used to convert weather
-stations observations in various format into ascii
+This module can be used to convert weather
+stations observations in MAGDA format into ascii
 WRF format.
 
 
 ## Installation
 
-The module use go-netcdf in order to read a netcdf
+The module use go-netcdf to read a netcdf
 containing world orography data.
 
 In order to use it, you need the developer version of the
@@ -23,30 +20,42 @@ On ubuntu you can install it with:
 sudo apt install libnetcdf-dev
 ```
 
+The orography data is used to calculate the altitude of every weather station
+given their latitude and longitude coordinates.
+
 You can download the orography file from 
 https://zenodo.org/record/4607436/files/orog.nc
 
+The file must be saved in path `~/.magda_ws2wrf/orog.nc`
+
+## Usage on CIMA Typhoon
+
+An orography file is already usable by `wrfprod` user:
+/data/safe/home/wrfprod/.magda_ws2wrf/orog.nc.
+
+`magda_ws2wrf` is already present in /data/safe/home/wrfprod/bin/magda_ws2wrf
 
 ## Command line usage
 
 This module implements a console command
-that can be used to convert observation
-as returned from webdrops API to ascii
-WRF format.
+that can be used to convert observations from
+CSV to ascii WRF format.
 
-Usage of `d2w`:
+Usage of `mag_ws2wrf`:
 
 ```
-d2w [options]
+mag_ws2wrf [options] <input file>...
 Options:
   -date string
-        date and hour of the data to download [YYYYMMDDHH]
+        date and hour of the stations data to filter [YYYYMMDDHH]
   -domain string
-        domain to filter stations to download [MinLat,MaxLat,MinLon,MaxLon]
-  -format string
-        format of input files (DEWETRA or WUNDERGROUND) (default ".")
-  -input string
-        where to read input files (default ".")
+        domain of the stations to filter [MinLat,MaxLat,MinLon,MaxLon]
   -outfile string
         where to save converted file (default "./out")
 ```
+
+* <input file> can be specified more than once. When multiple files are specified, their data is 
+concatenated in a single output ASCII file.
+* if date option is specified, only measurement of the date will be converted
+* if domain is option is specified, only stations contained in that domain will be converted
+* if no date or domain option are used, all data in input files is converted.
