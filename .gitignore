@@ -40,3 +40,4 @@ go.work
 mag_ws2wrf
 !cli/mag_ws2wrf
 temp.obs.asc
+fixtures

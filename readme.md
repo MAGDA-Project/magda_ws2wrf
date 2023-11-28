@@ -20,6 +20,12 @@ On ubuntu you can install it with:
 sudo apt install libnetcdf-dev
 ```
 
+On Typhoon, it can be loaded with the mWRF-KIT module:
+
+```bash
+module load gcc-8.3.1/WRF-KIT2
+```
+
 The orography data is used to calculate the altitude of every weather station
 given their latitude and longitude coordinates.
 
