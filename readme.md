@@ -20,7 +20,7 @@ On ubuntu you can install it with:
 sudo apt install libnetcdf-dev
 ```
 
-On Typhoon, it can be loaded with the mWRF-KIT module:
+On Typhoon, it can be loaded with the WRF-KIT2 module:
 
 ```bash
 module load gcc-8.3.1/WRF-KIT2
