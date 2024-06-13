@@ -35,6 +35,8 @@ func (r CsvReader) ReadAll(dataPath string, domain types.Domain, date time.Time)
 	const NAME = 3
 	const LON = 4
 	const LAT = 5
+  const HEIGHT = 6
+
 	for _, row := range data[1:] {
 		var obs types.Observation
 		var err error
@@ -60,7 +62,15 @@ func (r CsvReader) ReadAll(dataPath string, domain types.Domain, date time.Time)
 			(obs.ObsTimeUtc.Sub(date).Abs().Minutes() <= 15 || date.IsZero()) {
 
 			obs.StationID = row[ID]
-			obs.Elevation = elevations.GetFromCoord(obs.Lat, obs.Lon)
+      if len(row) == 7 {
+          elev, err := strconv.ParseFloat(row[HEIGHT], 64)
+          if err != nil {
+            return nil, err
+          }
+          obs.Elevation = elev
+      } else {
+					obs.Elevation = elevations.GetFromCoord(obs.Lat, obs.Lon)
+      } 
 			obs.StationName = row[NAME]
 			temp, err := strconv.ParseFloat(row[TEMP], 64)
 			if err != nil {
