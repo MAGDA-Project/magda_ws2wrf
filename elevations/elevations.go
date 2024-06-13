@@ -47,7 +47,7 @@ func openElevationsFile() *elevationsFile {
 
 	//interp = interpolate.Interp2d(e.xs, e.ys, e.zs)
 
-	if f.Error() != nil {
+	if err := f.Error(); err != nil {
 		panic(err)
 	}
 
