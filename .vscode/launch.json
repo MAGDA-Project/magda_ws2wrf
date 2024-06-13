@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "cli/mag_ws2wrf/main.go",
-            "args": [ "-outfile", "temp.obs.asc","-date", "2019062400", "/home/parroit/repos/cima/magda/hourly_air_temp_24_25_jun_2019.csv"]
+            "args": [ "-outfile", "temp.obs.asc","-date", "2021061815", "/home/parroit/repos/cima/magda/obstools/magda_ws2wrf/fixtures/ALL_STATIONS_2021-06-18_2021-06-19.csv"]
         }
 
     ]
