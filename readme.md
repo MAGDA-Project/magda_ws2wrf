@@ -65,3 +65,21 @@ concatenated in a single output ASCII file.
 * if date option is specified, only measurement of the date will be converted
 * if domain is option is specified, only stations contained in that domain will be converted
 * if no date or domain option are used, all data in input files is converted.
+
+## Build
+
+1) If not already installed, follow the instructions here to install the Go Workbench::
+[Install-go-environment](https://github.com/meteocima/documentazione/wiki/Installare-ambiente-di-lavoro-go)
+
+2) Clone this repository 
+
+```bash
+git clone https://github.com/MAGDA-Project/magda_ws2wrf.git
+cd magda_ws2wrf
+```
+
+5) Compile the executable with this command:
+
+```bash
+go build ./cli/mag_ws2wrf
+```
